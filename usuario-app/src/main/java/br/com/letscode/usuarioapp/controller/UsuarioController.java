@@ -23,9 +23,9 @@ public class UsuarioController {
     String addNewAluno(@RequestParam String nome, @RequestParam String email) {
         Usuario usuario = new Usuario();
         usuario.setNome(nome);
-        usuario.setEmail(email)
+        usuario.setEmail(email);
         usuarioRepository.save(usuario);
-        return "O usuário " + usuario.setNome() + " foi salvo!";
+        return "O usuário " + usuario.getNome() + " foi salvo!";
     }
 
     @GetMapping
