@@ -1,0 +1,30 @@
+server:
+  port: 81
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://usuarios-mysql/usuarios
+    username: root
+    password: root
+  application:
+    name: usuarios-service
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      ddl-auto: update
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+#  eureka:
+#    client:
+#      serviceUrl:
+#        defaultZone: http://eureka-server:8761/eureka
+#    instance:
+#      preferIpAddress: true
+#      nonSecurePort: 81
