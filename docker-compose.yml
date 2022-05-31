@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+
+  # Base de dados MySQL
+  produtos-mysql:
+    image: "mysql:latest"
+    container_name: "produtos-mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: produtos
+    networks:
+      services-network-01:
+        aliases:
+          - produtos-mysql
+
+  # App de produtos, que usa o MySQL
+  produto-app:
+    build: ./produto-app/
+    ports:
+      - "8080:80" 
+    depends_on:
+      - produtos-mysql
+      #- eureka-server
+    container_name: "produtos-mysql-app-instance"
+    networks:
+      services-network-01:
+        aliases:
+          - produtos-service
+
+
+networks:
+  services-network-01:
+    name: services-network-01
+    driver: bridge
