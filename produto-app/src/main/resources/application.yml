@@ -4,23 +4,23 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
     url: jdbc:mysql://produtos-mysql/produtos
+    username: root
     password: root
   application:
     name: produtos-service
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
     hibernate:
-    ddl-auto: update
-  management:
-    endpoints:
-      web:
-        exposure:
-          include: '*'
-    endpoint:
-      health:
-        -details: always
+      ddl-auto: update
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
 #  eureka:
 #    client:
 #      serviceUrl:
