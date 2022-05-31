@@ -28,7 +28,7 @@ public class UsuarioController {
         return "O usuário " + usuario.getNome() + " foi salvo!";
     }
 
-    @GetMapping
+    @GetMapping(path = "/{id}")
     public ResponseEntity<Usuario> getUsuario(@PathVariable String id) {
         Optional<Usuario> usuario = usuarioRepository.findById(Integer.valueOf(id));
 
