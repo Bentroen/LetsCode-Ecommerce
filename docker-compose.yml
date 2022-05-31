@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
 
-  # Base de dados MySQL
+  # Base de dados MySQL de produtos
   produtos-mysql:
     image: "mysql:latest"
     container_name: "produtos-mysql"
@@ -27,6 +27,34 @@ services:
       services-network-01:
         aliases:
           - produtos-service
+
+  # Base de dados MySQL de usuários
+  usuarios-mysql:
+    image: "mysql:latest"
+    ports:
+      - "3307:3306"
+    container_name: "usuarios-mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: usuarios
+    networks:
+      services-network-01:
+        aliases:
+          - usuarios-mysql
+
+  # App de usuários, que usa o MySQL
+  usuario-app:
+    build: ./usuario-app/
+    ports:
+      - "8081:81"
+    depends_on:
+      - usuarios-mysql
+      #- eureka-server
+    container_name: "usuarios-mysql-app-instance"
+    networks:
+      services-network-01:
+        aliases:
+          - usuarios-service
 
 
 networks:
