@@ -10,9 +10,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: produtos
     networks:
-      services-network-01:
-        aliases:
-          - produtos-mysql
+      - services-network-01
 
   # App de produtos, que usa o MySQL
   produto-app:
@@ -24,9 +22,7 @@ services:
       - eureka-server
     container_name: "produtos-mysql-app-instance"
     networks:
-      services-network-01:
-        aliases:
-          - produtos-service
+      - services-network-01
 
   # Base de dados MySQL de usuários
   usuarios-mysql:
@@ -38,9 +34,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: usuarios
     networks:
-      services-network-01:
-        aliases:
-          - usuarios-mysql
+      - services-network-01
 
   # App de usuários, que usa o MySQL
   usuario-app:
@@ -52,9 +46,7 @@ services:
       - eureka-server
     container_name: "usuarios-mysql-app-instance"
     networks:
-      services-network-01:
-        aliases:
-          - usuarios-service
+      - services-network-01
 
   # Base de dados Mongo de vendas
   vendas-mongo:
@@ -64,9 +56,7 @@ services:
     ports:
       - "27017:27017"
     networks:
-      services-network-01:
-        aliases:
-          - vendas-mongo
+      - services-network-01
 
   # App de vendas, que usa o Mongo
   venda-app:
@@ -80,9 +70,7 @@ services:
       - produto-app
       - usuario-app
     networks:
-      services-network-01:
-        aliases:
-          - vendas-service
+      - services-network-01
 
 
 # -------- CONFIGURAÇÃO -------- #
@@ -93,9 +81,29 @@ services:
       - "8761:8761"
     container_name: "eureka-server"
     networks:
-      services-network-01:
-        aliases:
-          - eureka-server
+      - services-network-01
+
+  #prometheus:
+  #  image: "prom/prometheus"
+  #  container_name: prometheus-app
+  #  ports:
+  #    - "9090:9090"
+  #  volumes:
+  #    - ./prometheus/:/etc/prometheus
+  #    - ./prometheus_data:/prometheus
+  #  command:
+  #    - '--config.file=/etc/prometheus/prometheus.yml'
+  #    - '--storage.tsdb.path=/prometheus'
+  #
+  #grafana:
+  #  container_name: grafana
+  #  image: grafana/grafana:latest
+  #  volumes:
+  #    - ./grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+  #  ports:
+  #    - "3000:3000"
+  #  depends_on:
+  #    - prometheus
 
   api-gateway:
     container_name: "api-gateway"
