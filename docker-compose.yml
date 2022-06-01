@@ -97,6 +97,16 @@ services:
         aliases:
           - eureka-server
 
+  api-gateway:
+    container_name: "api-gateway"
+    build: ./api-gateway/
+    ports:
+      - "8083:8083"
+    depends_on:
+      - eureka-server
+    networks:
+      - services-network-01
+
 
 
 
