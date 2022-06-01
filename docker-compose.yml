@@ -56,6 +56,34 @@ services:
         aliases:
           - usuarios-service
 
+  # Base de dados Mongo de vendas
+  vendas-mongo:
+    image: "mongo:latest"
+    container_name: "vendas-mongo"
+    hostname: "vendas-mongo"
+    ports:
+      - "27017:27017"
+    networks:
+      services-network-01:
+        aliases:
+          - vendas-mongo
+
+  # App de vendas, que usa o Mongo
+  venda-app:
+    build: ./venda-app/
+    container_name: "venda-app-instance"
+    ports:
+      - "8082:8082"
+    depends_on:
+      - vendas-mongo
+      #- eureka-server
+      - produto-app
+      - usuario-app
+    networks:
+      services-network-01:
+        aliases:
+          - vendas-service
+
 
 networks:
   services-network-01:
