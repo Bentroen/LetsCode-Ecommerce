@@ -23,7 +23,7 @@ spring:
     mongodb:
       database: carrinho
       port: 27018
-      host: carrinho-mongo
+      host: vendas-mongo
 
 server:
   port: 8082

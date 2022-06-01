@@ -21,7 +21,7 @@ services:
       - "8080:80" 
     depends_on:
       - produtos-mysql
-      #- eureka-server
+      - eureka-server
     container_name: "produtos-mysql-app-instance"
     networks:
       services-network-01:
@@ -49,7 +49,7 @@ services:
       - "8081:81"
     depends_on:
       - usuarios-mysql
-      #- eureka-server
+      - eureka-server
     container_name: "usuarios-mysql-app-instance"
     networks:
       services-network-01:
@@ -76,13 +76,28 @@ services:
       - "8082:8082"
     depends_on:
       - vendas-mongo
-      #- eureka-server
+      - eureka-server
       - produto-app
       - usuario-app
     networks:
       services-network-01:
         aliases:
           - vendas-service
+
+
+# -------- CONFIGURAÇÃO -------- #
+
+  eureka-server:
+    build: ./eureka-server
+    ports:
+      - "8761:8761"
+    container_name: "eureka-server"
+    networks:
+      services-network-01:
+        aliases:
+          - eureka-server
+
+
 
 
 networks:
