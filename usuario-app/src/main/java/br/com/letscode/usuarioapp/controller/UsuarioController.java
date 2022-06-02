@@ -20,7 +20,7 @@ public class UsuarioController {
 
     @PostMapping(path = "/add")
     public @ResponseBody
-    String addNewAluno(@RequestParam String nome, @RequestParam String email) {
+    String addNewUsuario(@RequestParam String nome, @RequestParam String email) {
         Usuario usuario = new Usuario();
         usuario.setNome(nome);
         usuario.setEmail(email);
