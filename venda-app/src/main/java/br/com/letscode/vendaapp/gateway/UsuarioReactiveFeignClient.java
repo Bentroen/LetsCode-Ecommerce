@@ -9,5 +9,5 @@ import reactor.core.publisher.Mono;
 public interface UsuarioReactiveFeignClient {
 
     @GetMapping("/usuario/{usuarioId}")
-    Mono<String> getUsuario(@PathVariable("alunoId") Long usuarioId);
+    Mono<String> getUsuario(@PathVariable("usuarioId") Long usuarioId);
 }

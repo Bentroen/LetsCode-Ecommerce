@@ -63,6 +63,8 @@ services:
       - eureka-server
       - produto-app
       - usuario-app
+    ports:
+      - "8082:8082"
     networks:
       - services-network-01
 

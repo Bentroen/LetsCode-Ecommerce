@@ -19,8 +19,7 @@ public class CarrinhoService {
     }
 
     public Mono<Carrinho> verificarUsuario(Carrinho c) {
-        return Mono.just(c).flatMap(carrinho -> usuarioGateway.getUsuario(carrinho.getUsuarioId())
-        ).map(t -> c);
+        return usuarioGateway.getUsuario(c.getUsuarioId()).map(t -> c);
     }
 
     public Mono<CarrinhoProdutoRequest> verificarProduto(CarrinhoProdutoRequest cpr) {
