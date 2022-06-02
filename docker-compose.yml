@@ -79,28 +79,29 @@ services:
     networks:
       - services-network-01
 
-  #prometheus:
-  #  image: "prom/prometheus"
-  #  container_name: prometheus-app
-  #  ports:
-  #    - "9090:9090"
-  #  volumes:
-  #    - ./prometheus/:/etc/prometheus
-  #    - ./prometheus_data:/prometheus
-  #  command:
-  #    - '--config.file=/etc/prometheus/prometheus.yml'
-  #    - '--storage.tsdb.path=/prometheus'
-  #
-  #grafana:
-  #  container_name: grafana
-  #  image: grafana/grafana:latest
-  #  volumes:
-  #    - ./grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
-  #  ports:
-  #    - "3000:3000"
-  #  depends_on:
-  #    - prometheus
-
+  prometheus:
+    image: "prom/prometheus"
+    container_name: prometheus-app
+    ports:
+      - "9090:9090"
+    volumes:
+      # Source:Target -> Source = caminho na máquina; Target = caminho no container
+      - ./etc/prometheus/:/etc/prometheus
+      - ./etc/prometheus/data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+  
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./etc/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+    depends_on:
+      - prometheus
+ 
   api-gateway:
     container_name: "api-gateway"
     build: ./api-gateway/
