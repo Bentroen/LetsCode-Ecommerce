@@ -30,3 +30,4 @@ eureka:
   instance:
     preferIpAddress: true
     nonSecurePort: 80
+    securePortEnabled: false

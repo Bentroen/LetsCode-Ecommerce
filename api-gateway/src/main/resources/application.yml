@@ -1,12 +1,12 @@
 server:
-  port: 8083
+  port: 8080
 eureka:
   client:
     serviceUrl:
       defaultZone: http://eureka-server:8761/eureka/
   instance:
     preferIpAddress: true
-    nonSecurePort: 8083
+    nonSecurePort: 8080
     securePortEnabled: false
 
 spring:
@@ -19,7 +19,7 @@ spring:
           enabled: true
       routes:
         - id: produtos-service
-          uri: lb://produto-service
+          uri: lb://produtos-service
           predicates:
             - Path=/produto/**
         - id: usuarios-service

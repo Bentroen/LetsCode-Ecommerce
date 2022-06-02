@@ -1,5 +1,5 @@
 server:
-  port: 81
+  port: 80
 
 spring:
   datasource:
@@ -29,4 +29,5 @@ eureka:
       defaultZone: http://eureka-server:8761/eureka
   instance:
     preferIpAddress: true
-    nonSecurePort: 81
+    nonSecurePort: 80
+    securePortEnabled: false
